@@ -27,12 +27,20 @@ class Calculator {
 
     operation(operator){
         this.operator = operator
-        this.initial += this.operator
         this.second = this.initial
         this.initial = ''
     }
 
     evaluate(){
+        if(this.operator == '+'){
+            this.initial = parseFloat(this.second) + parseFloat(this.initial)
+        } else if(this.operator == "-"){
+            this.initial = parseFloat(this.second) - parseFloat(this.initial)
+        } else if(this.operator == "x"){
+            this.initial = parseFloat(this.second * this.initial)
+        } else if (this.operator == "÷"){
+            this.initial = parseFloat(this.second / this.initial)
+        }
 
     }
 
@@ -80,6 +88,11 @@ deleteButton.addEventListener('click', () =>{
 
 clear.addEventListener('click', () =>{
     calculator.clear();
+    calculator.display();
+})
+
+equals.addEventListener('click', () => {
+    calculator.evaluate();
     calculator.display();
 })
 
