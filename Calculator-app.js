@@ -26,6 +26,14 @@ class Calculator {
     }
 
     operation(operator){
+        if(this.operator == operator){
+            return;
+        } else if(this.initial.length <= 1 && operator == "-"){
+            this.initial = subtraction.innerHTML;
+            return;
+        } else if(this.initial.length <= 0){
+            return;
+        }
         this.operator = operator
         this.second = this.initial
         this.initial = ''
@@ -34,34 +42,55 @@ class Calculator {
     evaluate(){
         if(this.operator == '+'){
             this.initial = parseFloat(this.second) + parseFloat(this.initial)
+            this.operator = ''
         } else if(this.operator == "-"){
             this.initial = parseFloat(this.second) - parseFloat(this.initial)
+            this.operator = ''
         } else if(this.operator == "x"){
             this.initial = parseFloat(this.second * this.initial)
+            this.operator = ''
         } else if (this.operator == "÷"){
+            if(this.initial == 0){
+                this.clear();
+                alert("ERROR. CANNOT DIVIDE BY ZERO.")
+            } else {
             this.initial = parseFloat(this.second / this.initial)
+            this.operator = ''
+            }
+        if(this.initial.toString().includes('.') && this.initial.length >= 9){
+        this.initial = Math.round(this.initial)
+        this.operator = ''
+        } else if (this.initial.toString().includes('.')){
+            this.initial = Math.round(this.initial * 100) / 100
+            this.operator = ''
         }
-
     }
+}
 
     delete(){
         this.initial = this.initial.toString().slice(0, -1)
     }
 
     display(){
-        this.initialValue.textContent = this.initial
-        this.secondValue.textContent = this.second
+        this.initialValue.textContent = this.initial.toString().slice(0, 9)
+        this.secondValue.textContent = this.second.toString().slice(0, 9) + this.operator
+    }
+
+    evaluatedDisplay(){
+        this.initialValue.textContent = this.initial.toString().slice(0, 9)
+        this.secondValue.textContent = ""
     }
 
     appendNumber(number){
         if(this.initial.length == 9) {
             return;
         }
-        if(this.initial.includes('.') && number == '.'){
+        if(this.initial.toString().includes('.') && number == '.'){
             return;
         }
         this.initial += number.toString();
     }
+
     
 }
 
@@ -93,7 +122,7 @@ clear.addEventListener('click', () =>{
 
 equals.addEventListener('click', () => {
     calculator.evaluate();
-    calculator.display();
+    calculator.evaluatedDisplay();
 })
 
 
