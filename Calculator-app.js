@@ -68,7 +68,7 @@ class Calculator {
     delete(){
         if(this.operator !== '' && this.initial.length >= 1){
             this.initial = this.initial.toString().slice(0, -1)
-        } else if(this.operator !== '' && this.second.length >= 0){
+        } else if(this.initial.length == 0 && this.second.length >= 0){
             this.operator = ''
             this.initial = this.second
             this.second = ''
