@@ -26,23 +26,39 @@ class Calculator {
     }
 
     operation(operator){
+        if(this.initial === "-"){
+            return;
+        } else if (this.initial.length < 1 && operator != "-"){
+            return;
+        }
+        if (this.operator == operator || this.operator != operator){
+            this.evaluate();
+        }
         if(this.operator == this.operatorMemory){
             this.operator = this.operatorMemory;
-        } else if (this.operator == operator){
-            return;
-        } else if(this.initial.length <= 1 && operator == "-"){
+        } else if (this.operator == operator && this.initial.length < 1){
+            if(this.operator == "-" && this.initial.length == 0){
+                this.initial = subtraction.innerHTML
+            }
+            return
+        } else if(this.initial.length < 1 && operator == "-" || this.second.length > 1 && this.initial.length < 1 && operator == "-"){
             this.initial = subtraction.innerHTML;
             return;
-        } else if(this.initial.length <= 0){
+        } else if(this.initial.length >= 0 && this.second.length >= 0){
+            this.evaluate()
+        } else if (this.initial.length <= 0){
             return;
-        } 
+        }
         this.operator = operator
         this.second = this.initial
         this.initial = ''
     }
 
     evaluate(){
-        if(this.operator == '+'){
+        if(this.second.length >= 1 && this.initial.length < 1){
+            return;
+        }
+         if(this.operator == '+'){
             this.initial = parseFloat(this.second) + parseFloat(this.initial)
         } else if(this.operator == "-"){
             this.initial = parseFloat(this.second) - parseFloat(this.initial)
@@ -80,8 +96,8 @@ class Calculator {
     }
 
     display(){
-        this.initialValue.textContent = this.initial.toString().slice(0, 9)
-        this.secondValue.textContent = this.second.toString().slice(0, 9) + " " + this.operator
+        this.initialValue.textContent = `${this.initial.toString().slice(0, 9)}`
+        this.secondValue.textContent = `${this.second.toString().slice(0, 9)} ${this.operator}`
     }
 
     evaluatedDisplay(){
