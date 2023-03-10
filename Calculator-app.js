@@ -58,7 +58,7 @@ class Calculator {
         if(this.second.length >= 1 && this.initial.length < 1){
             return;
         }
-         if(this.operator == '+'){
+        if(this.operator == '+'){
             this.initial = parseFloat(this.second) + parseFloat(this.initial)
         } else if(this.operator == "-"){
             this.initial = parseFloat(this.second) - parseFloat(this.initial)
