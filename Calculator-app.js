@@ -12,6 +12,7 @@ const secondValue = document.querySelector('.secondValue')
 const deleteButton = document.querySelector('.deleteButton')
 const clear = document.querySelector('.clearButton')
 
+let hasRun = false;
 class Calculator {
     constructor(initialValue, secondValue){
         this.initialValue = initialValue;
@@ -26,13 +27,20 @@ class Calculator {
     }
 
     operation(operator){
-        if(this.initial === "-"){
+        if(this.initial === "-" || this.initial === "." || this.initial === "-."){
             return;
         } else if (this.initial.length < 1 && operator != "-"){
             return;
+        } else if (this.initial.length < 1 && this.second.length < 1 && operator == "-"){
+            this.initial = operator
+            return;
         }
-        if (this.operator == operator || this.operator != operator){
-            this.evaluate();
+        if(hasRun == true){
+            this.second = this.initial
+            this.initial = ''
+            this.operator = operator
+            hasRun = false;
+            return;
         }
         if(this.operator == this.operatorMemory){
             this.operator = this.operatorMemory;
@@ -48,14 +56,19 @@ class Calculator {
             this.evaluate()
         } else if (this.initial.length <= 0){
             return;
+        } else {
+            this.evaluate();
         }
+        console.log(hasRun)
         this.operator = operator
         this.second = this.initial
         this.initial = ''
     }
 
     evaluate(){
-        if(this.second.length >= 1 && this.initial.length < 1){
+        if(this.second.length >= 1 && this.initial.length < 1 || this.initial == "-"){
+            return;
+        } else if (this.initialValue.textContent == ""){
             return;
         }
         if(this.operator == '+'){
@@ -77,7 +90,6 @@ class Calculator {
             this.initial = Math.round(this.initial * 100) / 100
         }
         this.operatorMemory = this.operator
-        this.memory = this.second
     }
 }
 
@@ -151,6 +163,7 @@ clear.addEventListener('click', () =>{
 equals.addEventListener('click', () => {
     calculator.evaluate();
     calculator.display();
+    hasRun = true;
 })
 
 
