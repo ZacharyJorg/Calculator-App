@@ -35,13 +35,6 @@ class Calculator {
             this.initial = operator
             return;
         }
-        else if(hasRun == true){
-            this.second = this.initial
-            this.initial = ''
-            this.operator = operator
-            hasRun = false;
-            return;
-        }
         if(this.operator == this.operatorMemory){
             this.operator = this.operatorMemory;
         } else if (this.operator == operator && this.initial.length < 1){
@@ -55,6 +48,12 @@ class Calculator {
         } else if(this.initial.length >= 0 && this.second.length >= 0){
             this.evaluate()
         } else if (this.initial.length <= 0){
+            return;
+        }  else if(hasRun == true){
+            this.second = this.initial
+            this.initial = ''
+            this.operator = operator
+            hasRun = false;
             return;
         } else {
             this.evaluate();

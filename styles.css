@@ -68,12 +68,7 @@ box-shadow: 1px 1px 1px 1px;
     width: 50px;
 }
 
-.background{
-    position: absolute;
-    margin-top: 1%;
-    height: 80vh;
-    min-height: fit-content;
-    width: 55vh;
-    background-color: aqua;
-    z-index: -100;
+.calculator{
+    background-color: green;
+    padding: 2%;
 }
