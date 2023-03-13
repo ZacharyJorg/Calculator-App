@@ -35,7 +35,7 @@ class Calculator {
             this.initial = operator
             return;
         }
-        if(hasRun == true){
+        else if(hasRun == true){
             this.second = this.initial
             this.initial = ''
             this.operator = operator
